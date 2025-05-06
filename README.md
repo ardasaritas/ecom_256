@@ -31,7 +31,7 @@ ExpirySaver is a multi-user web-based application designed to reduce food waste 
 
 ## 🛠 Technologies Used
 
-- **Backend:** PHP (Procedural)
+- **Backend:** PHP
 - **Database:** MySQL
 - **Frontend:** HTML, CSS, Bootstrap, AJAX, jQuery
 - **Security:** CSRF protection, hashed passwords, input validation
