@@ -144,11 +144,11 @@ README.md
 
 | Name          | Role                      |
 |---------------|---------------------------|
-| [Name 1]      | User Auth & Registration  |
-| [Name 2]      | Market Dashboard & Products |
-| [Name 3]      | Consumer Search & Pagination |
-| [Name 4]      | Shopping Cart & AJAX Logic |
-| [Name 5]      | Frontend Design & Validation |
+| [Dev]      | User Auth & Registration  |
+| [Dev]      | Market Dashboard & Products |
+| [Dev]      | Consumer Search & Pagination |
+| [Dev]      | Shopping Cart & AJAX Logic |
+| [Dev]      | Frontend Design & Validation |
 
 ---
 
