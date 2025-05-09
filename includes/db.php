@@ -13,7 +13,7 @@ catch( PDOException $ex) {
 function checkUser($email, $pass, &$user) {
     global $db ;
 
-    $stmt = $db->prepare("select * from auth where email=?") ;
+    $stmt = $db->prepare("select * from users where email=?") ;
     $stmt->execute([$email]) ;
     $user = $stmt->fetch() ;
     return $user ? password_verify($pass, $user["password"]) : false ;
@@ -22,13 +22,13 @@ function checkUser($email, $pass, &$user) {
 // Remember me
 function getUserByToken($token) {
    global $db ;
-   $stmt = $db->prepare("select * from auth where remember = ?") ;
+   $stmt = $db->prepare("select * from users where remember = ?") ;
    $stmt->execute([$token]) ;
    return $stmt->fetch() ;
 }
 
 function setTokenByEmail($email, $token) {
    global $db ;
-   $stmt = $db->prepare("update auth set remember = ? where email = ?") ;
+   $stmt = $db->prepare("update users set remember = ? where email = ?") ;
    $stmt->execute([$token, $email]) ;
 }
