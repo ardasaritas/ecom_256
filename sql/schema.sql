@@ -10,7 +10,8 @@ CREATE TABLE users (
     district VARCHAR(100) NOT NULL,
     is_verified BOOLEAN DEFAULT 0,
     verification_code VARCHAR(255),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    remember VARCHAR(200)
 );
 
 -- Products Table
