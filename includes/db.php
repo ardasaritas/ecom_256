@@ -1,5 +1,4 @@
 <?php
-<<<<<<< Updated upstream
 
 
 
@@ -33,18 +32,3 @@ function setTokenByEmail($email, $token) {
    $stmt = $db->prepare("update auth set remember = ? where email = ?") ;
    $stmt->execute([$token, $email]) ;
 }
-=======
-// Database configuration (customize accordingly)
-$dsn = "mysql:host=localhost;dbname=expirySaver;charset=utf8mb4";
-$user = "root";
-$pass = "";
-
-// Database connection
-try {
-    $db = new PDO($dsn, $user, $pass);
-} catch (PDOException $e) {
-    print("<p>Connection Error: " . $ex->getMessage() . "</p>"); 
-    exit; 
-}
-?>
->>>>>>> Stashed changes
