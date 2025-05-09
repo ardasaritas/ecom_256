@@ -148,7 +148,7 @@ README.md
 | [Dev]      | Market Dashboard & Products |
 | [Dev]      | Consumer Search & Pagination |
 | [Dev]      | Shopping Cart & AJAX Logic |
-| [Dev]      | Frontend Design & Validation |
+| Arda Sarıtaş (@ardasaritas)      | UI/UX, Data, and Sessions |
 
 ---
 
