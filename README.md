@@ -120,7 +120,7 @@ README.md
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/expirysaver.git
+   git clone https://github.com/ardasaritas/expirysaver.git
    cd expirysaver
    ```
 
@@ -144,7 +144,7 @@ README.md
 
 | Name          | Role                      |
 |---------------|---------------------------|
-| [Dev]      | User Auth & Registration  |
+| Hamit Efe Eldem (@HamitEldem)      | User Auth & Registration  |
 | [Dev]      | Market Dashboard & Products |
 | [Dev]      | Consumer Search & Pagination |
 | [Dev]      | Shopping Cart & AJAX Logic |
