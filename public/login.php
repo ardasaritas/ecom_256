@@ -8,10 +8,12 @@ require "../includes/db.php" ;
 
 //routes the user based on the role of the user
 function routeUser($user){
-    if($user["role"] == "market"){
-        header("Location: ../market/dashboard.php");
-    } else if($user["role"] == "consumer"){
-        header("Location: ../consumer/dashboard.php");
+    if (isset($user["role"])){
+         if($user["role"] == "market"){
+             header("Location: ../market/dashboard.php");
+         } else if($user["role"] == "consumer"){
+            header("Location: ../consumer/dashboard.php");
+        }
     }
 }
 
@@ -29,7 +31,7 @@ function routeUser($user){
  // if the user has already logged in, don't show login form
  if ( isset($_SESSION["user"])) {
     routeUser($_SESSION["user"]);
-     exit ;
+    exit ;
   } 
 
  
@@ -76,7 +78,7 @@ if (!empty($_POST)) {
         <input type="text" placeholder = "Username" name = "email">
         <input type="password" placeholder = "Password" name = "password">
         <label for="remember-me">Remember Me</label>
-        <input type="checkbox" name="remember-me" id="">
+        <input type="checkbox" name="remember" id="">
         <button type="submit">Log in</button>
 
 

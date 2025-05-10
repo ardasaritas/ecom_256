@@ -32,7 +32,9 @@
        $stmt->execute([$email, $hash, $role, $name ,$city , $district , $verified, $code ]) ;
        header("Location: verify_email.php") ;
        exit ; 
-  }
+  
+  
+      }
 ?>
 
 <!DOCTYPE html>
