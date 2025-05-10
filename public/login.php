@@ -28,7 +28,7 @@ function routeUser($user){
  }
  // if the user has already logged in, don't show login form
  if ( isset($_SESSION["user"])) {
-    routeUser($user);
+    routeUser($_SESSION["user"]);
      exit ;
   } 
 
