@@ -1,0 +1,19 @@
+{
+    "name": "efeeldem/app",
+    "description": "256 Project",
+    "autoload": {
+        "psr-4": {
+            "Efeeldem\\App\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "HamitEldem",
+            "email": "meydanlar-guveler0l@icloud.com"
+        }
+    ],
+    "require": {
+        "guzzlehttp/guzzle": "*",
+        "phpmailer/phpmailer": "*"
+    }
+}
