@@ -22,13 +22,8 @@ class Mail {
     
         //Recipients
         $mail->setFrom(EMAIL, FULLNAME);
-        // $mail->setFrom('ahmet@ug.bilkent.edu.tr', 'Ahmet Yılmaz');
         $mail->addAddress($to, $to);     //Add a recipient
-        // You can add more than one address
-        // See further option of recipients cc, bcc in phpmailer docs.
 
-        // Attachment
-        // See Documentation of phpmailer
 
         //Content
         $mail->isHTML(true);  //Set email format to HTML
