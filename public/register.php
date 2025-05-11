@@ -2,7 +2,13 @@
   require_once "../app/includes/db.php" ;
   require "../app/templates/header.php";
   require "../app/templates/navbar.php";
+  require_once "../app/includes/email.php";
+  require_once "../app/vendor/autoload.php";
 
+
+
+
+  
   if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST)) {
     echo "entered post";
     extract($_POST) ; // $role, $email, $name, $password, $city, $district (UPDATED BEWARE)
@@ -10,15 +16,25 @@
     
     // Validate and Verify Form Data
     $hashedPass = password_hash($password, PASSWORD_BCRYPT) ; 
-    $verified = 1 ; // default 0
+    $verified = 0 ; // when user enters OTP this field will be 1
+   
     $code = random_int(100000, 999999);
-       $sql = "insert into users (email, password, role, name, city, district, is_verified, verification_code) 
+    $sql = "insert into users (email, password, role, name, city, district, is_verified, verification_code) 
                                  values (?, ?, ?, ?, ?, ?, ?, ?)" ;
-       $stmt = $db->prepare($sql) ;
-       $stmt->execute([$email, $hashedPass, $role, $name , $city , $district , $verified, $code ]) ;
-       header("Location: verify_email.php") ; // can we use require email.php here instead since backend logic should prob not be visible to web server? 
-       exit ;
-      }
+    $stmt = $db->prepare($sql) ;
+    $stmt->execute([$email, $hashedPass, $role, $name , $city , $district , $verified, $code ]) ;
+
+    // after 15 minutes the cookie below will expire (this is for email verification)
+    setcookie("email", $email, time() + (15 * 60), "/"); 
+
+    //send mail to user
+    Mail::send($email, "6 digit OTP", $code) ;
+
+
+
+    header("Location: verify_email.php") ; // user will enter the OTP in verify_email.php 
+    exit ;
+  }
 ?>
 
 <main class="d-flex flex-grow-1 justify-content-center align-items-center py-5">
@@ -96,4 +112,4 @@
 </script>
 
 
-<?php require "../templates/footer.php"; ?>
+<?php require "../app/templates/footer.php"; ?>
