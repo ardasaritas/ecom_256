@@ -1,3 +1,6 @@
+<?php
+# Verify Email Logic, proposal to change to email.php under includes and than require it where needed
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

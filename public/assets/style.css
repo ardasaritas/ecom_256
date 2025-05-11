@@ -2,14 +2,21 @@
     min-width: 100px;
 }
 
+.width-300 {
+    min-width: 300px;
+}
+.width-500 {
+    min-width: 500px;
+}
+
 .card-hover {
     transition: all 0.3s ease;
-  }
+}
   
-  .card-hover:hover {
+.card-hover:hover {
     transform: translateY(-5px);
     box-shadow: 0 0.75rem 1.5rem rgba(0, 0, 0, 0.2);
     background-color: #f8f9fa; /* light gray */
-  }
+}
   
   

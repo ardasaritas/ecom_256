@@ -1,9 +1,7 @@
 <?php
 
-
-
 try {
-       $db = new PDO("mysql:host=localhost;dbname=test;charset=utf8mb4", "root", "root");
+       $db = new PDO("mysql:host=localhost;dbname=expirySaver;charset=utf8mb4", "root", "");
        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION) ;
     } 
 catch( PDOException $ex) {
@@ -12,18 +10,26 @@ catch( PDOException $ex) {
 
 function checkUser($email, $pass, &$user) {
     global $db ;
-
-    $stmt = $db->prepare("select * from users where email=?") ;
-    $stmt->execute([$email]) ;
-    $user = $stmt->fetch() ;
+    try {
+        $stmt = $db->prepare("select * from users where email=?") ;
+        $stmt->execute([$email]) ;
+        $user = $stmt->fetch() ;
+    }catch (PDOException $e) {
+        echo $e->getMessage();
+    }
     return $user ? password_verify($pass, $user["password"]) : false ;
 }
 
 // Remember me
 function getUserByToken($token) {
    global $db ;
-   $stmt = $db->prepare("select * from users where remember = ?") ;
-   $stmt->execute([$token]) ;
+   try {
+    $stmt = $db->prepare("select * from users where remember = ?") ;
+    $stmt->execute([$token]) ;
+   } catch (PDOException $e){
+        $e->getMessage();
+   }
+   
    return $stmt->fetch() ;
 }
 

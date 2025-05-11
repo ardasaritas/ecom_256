@@ -1,7 +1,7 @@
 <?php 
-  require_once "../includes/db.php";
-  require "../templates/header.php";
-  require "../templates/navbar.php"; 
+  require_once "../app/includes/db.php";
+  require "../app/templates/header.php";
+  require "../app/templates/navbar.php"; 
 ?>
 
 <!-- Hero Section -->
@@ -9,8 +9,10 @@
   <div class="container">
     <h1 class="display-4 fw-bold">Welcome to ExpirySaver</h1>
     <p class="lead">Helping markets reduce waste and consumers save money on quality food nearing expiration.</p>
+    <?php if(!isset($_SESSION["user"]) && !isset($_COOKIE["access-token"])): ?>
     <a href="login.php" class="btn btn-primary btn-lg me-2">Login</a>
     <a href="register.php" class="btn btn-outline-secondary btn-lg">Register</a>
+    <?php endif ?>
   </div>
 </div>
 
@@ -89,10 +91,14 @@
   </div>
 </div>
 
-
-<div class="bg-primary text-white text-center py-4 mt-auto">
-  <h5 class="mb-0">Ready to explore?
+<!-- CTA Part --> 
+<div class = "mt-auto">
+<?php if(!isset($_SESSION["user"]) && !isset($_COOKIE["access-token"])): ?>  
+<div class="bg-primary text-white text-center py-4">
+    <h5 class="mb-0">Ready to explore?  
     <a href="register.php" class="btn btn-light btn-sm ms-2">Get Started</a>
   </h5>
 </div>
-<?php require_once "../templates/footer.php"; ?>
+<?php endif ?>
+<?php require "../app/templates/footer.php"; ?>
+</div>
