@@ -44,3 +44,4 @@ function setTokenByEmail($email, $token) {
    $stmt = $db->prepare("update users set remember = ? where email = ?") ;
    $stmt->execute([$token, $email]) ;
 }
+
