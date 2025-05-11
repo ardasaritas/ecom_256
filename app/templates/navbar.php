@@ -17,12 +17,12 @@ if (session_status() === PHP_SESSION_NONE) {
         <li class="nav-item"><a class="nav-link text-center px-3 width-100" href="about.php">About</a></li>
         <?php if(isset($_SESSION["user"]) || isset($_COOKIE["access-token"])): ?>
           <?php if($_SESSION["user"]["role"] == "consumer"): ?>
-            <li class="nav-item"><a class="nav-link text-center px-3 width-100" href="../../public/consumer_dashboard.php">Dashboard</a></li>
+            <li class="nav-item"><a class="nav-link text-center px-3 width-100" href="consumer_dashboard.php">Dashboard</a></li>
           <?php else: ?>
-            <li class="nav-item"><a class="nav-link text-center px-3 width-100" href="../../public/market_dashboard.php">Dashboard</a></li>
+            <li class="nav-item"><a class="nav-link text-center px-3 width-100" href="market_dashboard.php">Dashboard</a></li>
             <?php endif?>
-            <li class="nav-item"><a class="nav-link text-center px-3 width-100" href="../../public/profile.php"><?= $_SESSION["user"]["name"]?></a></li>  
-            <li class="nav-item"><a class="nav-link text-center px-3 width-100" href="../../public/logout.php">Logout</a></li>
+            <li class="nav-item"><a class="nav-link text-center px-3 width-100" href="profile.php"><?= $_SESSION["user"]["name"]?></a></li>  
+            <li class="nav-item"><a class="nav-link text-center px-3 width-100" href="logout.php">Logout</a></li>
         <?php else: ?>
           <li class="nav-item"><a class="nav-link text-center px-3 width-100" href="login.php">Login</a></li>
           <li class="nav-item"><a class="nav-link text-center px-3 width-100" href="register.php">Register</a></li>
