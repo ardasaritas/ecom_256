@@ -1,7 +1,13 @@
 <?php
 
+/****************Customize here for own use *********************/
+$dsn = "mysql:host=localhost;dbname=expirySaver;charset=utf8mb4";
+$user = "root";
+$pass = "";
+/****************************************************************/
+
 try {
-       $db = new PDO("mysql:host=localhost;dbname=expirySaver;charset=utf8mb4", "root", "");
+       $db = new PDO($dsn, $user, $pass);
        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION) ;
     } 
 catch( PDOException $ex) {

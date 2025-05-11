@@ -128,12 +128,11 @@ README.md
    - Run `sql/schema.sql` in phpMyAdmin or MySQL CLI
    - (Optional) Run `sql/seed_data.sql` for demo data
 
-3. Configure database access in `includes/config.php`:
+3. Configure database access in `/app/includes/db.php`:
    ```php
-   define('DB_HOST', 'localhost');
-   define('DB_NAME', 'expirysaver');
-   define('DB_USER', 'root');
-   define('DB_PASS', '');
+   $dsn = "mysql:host=localhost;dbname=expirySaver;charset=utf8mb4";
+   $user = "root";
+   $pass = ""; 
    ```
 
 4. Set your web server's root to the `/public` directory.
