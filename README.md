@@ -41,55 +41,50 @@ ExpirySaver is a multi-user web-based application designed to reduce food waste 
 ## 📁 File Structure
 
 ```
-public/              # Public entry point and assets
-├── index.php
-├── login.php
-├── register.php
-├── logout.php
-├── verify_email.php
-├── assets/
-│   ├── css/
-│   ├── js/
-│   └── img/
-
-includes/            # Backend logic, DB, auth, security
-├── db.php
-├── config.php
-├── auth.php
-├── csrf.php
-├── functions.php
-├── email.php
-
-templates/           # Reusable UI components
-├── header.php
-├── navbar.php
-├── footer.php
-├── form_components.php
-
-market/              # Market dashboard and operations
-├── dashboard.php
-├── add_product.php
-├── edit_product.php
-├── delete_product.php
-
-consumer/            # Consumer dashboard and product/cart flow
-├── dashboard.php
-├── search.php
-├── cart.php
-
-ajax/                # AJAX endpoints
-├── update_cart.php
-├── purchase.php
-├── product_search.php
-
-sql/                 # SQL schema and seed data
-├── schema.sql
-├── seed_data.sql
-
-uploads/             # Uploaded product images (write-protected)
-
+├── app
+│   ├── ajax                   # AJAX endpoints for async operations
+│   │   ├── product_search.php
+│   │   ├── purchase.php
+│   │   └── update_cart.php
+│   ├── controllers            # Server-side logic, grouped by user role
+│   │   ├── consumer
+│   │   │   ├── cart.php
+│   │   │   ├── dashboard.php
+│   │   │   └── search.php
+│   │   └── market
+│   │       ├── add_product.php
+│   │       ├── dashboard.php
+│   │       ├── delete_product.php
+│   │       └── edit_product.php
+│   ├── includes               # Core backend logic (auth, DB, helpers)
+│   │   ├── auth.php
+│   │   ├── csrf.php
+│   │   ├── db.php
+│   │   ├── email.php
+│   │   └── functions.php
+│   └── templates              # Shared HTML components
+│       ├── footer.php
+│       ├── form_components.php
+│       ├── header.php
+│       └── navbar.php
+├── public                    # Public-facing routes (DocumentRoot)
+│   ├── about.php
+│   ├── assets
+│   │   └── style.css
+│   ├── cart.php
+│   ├── consumer_dashboard.php
+│   ├── index.php
+│   ├── login.php
+│   ├── logout.php
+│   ├── market_dashboard.php
+│   ├── profile.php
+│   ├── register.php
+│   ├── search.php
+│   └── verify_email.php
+└── sql                       # Database schema and seed data
+    ├── schema.sql
+    └── seed_data.sql
 README.md
-.gitignore
 ```
 
 ---
