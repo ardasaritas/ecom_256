@@ -1,6 +1,8 @@
 <?php
 
 require_once "../app/includes/db.php" ;
+require "../app/templates/header.php";
+require "../app/templates/navbar.php";
 
 //check if user is coming from register.php - otherwise there won't be any cookie -
 if($_COOKIE["email"] != ""){
@@ -34,14 +36,7 @@ if($_COOKIE["email"] != ""){
 
 
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Email Verify</title>
 
-</head>
 <body>
     <form action="" method = "post" >
         <p>Enter the 6-Digit Code</p>
@@ -49,4 +44,5 @@ if($_COOKIE["email"] != ""){
         <button type="submit">Verify Email</button>
     </form>
 </body>
-</html>
+
+<?php require "../app/templates/footer.php";?>
