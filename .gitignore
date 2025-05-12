@@ -2,7 +2,7 @@
 .env
 
 # Ignore vendor folder
-/app/vendor
+/vendor
 
 # Ignore logs
 *.log
