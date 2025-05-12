@@ -37,14 +37,14 @@
   }
 ?>
 
-<main class="d-flex flex-grow-1 justify-content-center align-items-center py-5">
-  <div class="card p-4 shadow width-500">
-    <h2 class="text-center mb-4 fw-bold">Register for ExpirySaver</h2>
+<main class="d-flex flex-grow-1 justify-content-center align-items-center">
+  <div class="card p-5 shadow width-500">
+    <h2 class="text-center mb-5 fw-bold">Register for ExpirySaver</h2>
 
     <form method="post" action="register.php" autocomplete="off">
 
       <!-- Role Toggle -->
-      <div class="mb-4 text-center">
+      <div class="mb-5 text-center">
         <div class="d-flex btn-group" role="group">
           <input type="radio" class="btn-check" name="role" id="consumer" value="consumer" autocomplete="off" checked>
           <label class="btn btn-outline-primary flex-fill" for="consumer">Consumer</label>

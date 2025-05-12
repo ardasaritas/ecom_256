@@ -71,10 +71,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST)) {
     <form method="post" action="login.php" autocomplete="off">
       <div class="mb-3">
         <label for="email" class="form-label">Email address</label>
-        <input type="email" name="email" class="form-control" id="email" autocomplete="off" 
-        required 
+        <input type="email" name="email" class="form-control" id="email" autocomplete="off" required 
+        value="<?php echo isset($_POST['email']) ? htmlspecialchars($_POST['email']) : '';?>"
         oninvalid="this.setCustomValidity('Please enter your email address')"
-        oninput="this.setCustomValidity('')">
+        oninput="this.setCustomValidity('')"
+        >
 
       </div>
 

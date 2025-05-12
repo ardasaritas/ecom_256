@@ -36,13 +36,22 @@ if($_COOKIE["email"] != ""){
 
 
 ?>
-
-<body>
-    <form action="" method = "post" >
-        <p>Enter the 6-Digit Code</p>
-        <input type="text" inputmode="numeric" maxlength="6" placeholder="Enter OTP" name = "otp">
-        <button type="submit">Verify Email</button>
+<main class="d-flex flex-grow-1 justify-content-center align-items-center">
+  <div class="card shadow p-5 width-500">
+    <h2 class="text-center mb-4">Verify Your Email</h2>
+    <form method="POST" action="" autocomplete="off">
+      <div class="mb-3">
+        <label for="verification_code" class="form-label">Verification Code</label>
+        <input type="text" class="form-control" inputmode="numeric" maxlength="6" name="otp" placeholder="Enter the code sent to your email" required>
+      </div>
+      <div class="d-grid gap-2">
+        <button type="submit" class="btn btn-primary">Verify</button>
+      </div>
     </form>
-</body>
+    <div class="mt-3 text-center">
+      <p class="text-muted">Didn't receive a code? <a href="?">Resend</a></p>
+    </div>
+  </div>
+</main>
 
 <?php require "../app/templates/footer.php";?>
