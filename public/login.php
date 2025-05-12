@@ -29,11 +29,11 @@ function routeUser($user){
         exit ; 
     }
  }
- // if the user has already logged in, don't show login form
-//  if ( isset($_SESSION["user"])) {
-//     routeUser($_SESSION["user"]);
-//     exit ;
-//   } 
+  //if the user has already logged in, don't show login form
+  if ( isset($_SESSION["user"])) {
+     routeUser($_SESSION["user"]);
+     exit ;
+   } 
 
  
 // Process Login Form
