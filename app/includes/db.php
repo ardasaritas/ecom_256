@@ -45,3 +45,27 @@ function setTokenByEmail($email, $token) {
    $stmt->execute([$token, $email]) ;
 }
 
+function getUserByEmail($email){
+    global $db ;
+    try {
+     $stmt = $db->prepare("select * from users where email = ?") ;
+     $stmt->execute([$email]) ;
+    } catch (PDOException $e){
+         $e->getMessage();
+    }
+    
+    return $stmt->fetch() ;
+
+}
+
+function setUserVerified($email){
+    global $db ;
+    try {
+     $stmt = $db->prepare("update users set is_verified = 1 where email = ?") ;
+     $stmt->execute([$email]) ;
+    } catch (PDOException $e){
+         $e->getMessage();
+    }
+    
+    
+}
