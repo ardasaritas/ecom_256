@@ -1,6 +1,8 @@
 <?php
 
 require_once "../app/includes/db.php" ;
+require "../app/templates/header.php";
+require "../app/templates/navbar.php";
 
 //check if user is coming from register.php - otherwise there won't be any cookie -
 if($_COOKIE["email"] != ""){
