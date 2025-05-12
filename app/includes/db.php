@@ -1,9 +1,9 @@
 <?php
 
 /****************Customize here for own use *********************/
-$dsn = "mysql:host=localhost;dbname=expirySaver;charset=utf8mb4";
+$dsn = "mysql:host=localhost;dbname=test;charset=utf8mb4";
 $user = "root";
-$pass = "";
+$pass = "root";
 /****************************************************************/
 
 try {
