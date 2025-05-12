@@ -50,11 +50,13 @@ function getUserByEmail($email){
     try {
      $stmt = $db->prepare("select * from users where email = ?") ;
      $stmt->execute([$email]) ;
+
+     return $stmt->fetch() ;
+
     } catch (PDOException $e){
          $e->getMessage();
     }
     
-    return $stmt->fetch() ;
 
 }
 
