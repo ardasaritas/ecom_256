@@ -62,11 +62,15 @@ ExpirySaver is a multi-user web-based application designed to reduce food waste 
 │   │   ├── db.php
 │   │   ├── email.php
 │   │   └── functions.php
-│   └── templates              # Shared HTML components
-│       ├── footer.php
-│       ├── form_components.php
-│       ├── header.php
-│       └── navbar.php
+│   ├── templates              # Shared HTML components
+│   │   ├── footer.php
+│   │   ├── form_components.php
+│   │   ├── header.php
+│   │   └── navbar.php
+│   ├── vendor
+│   └── composer.json
+│   └── composer.lock
+│
 ├── public                    # Public-facing routes (DocumentRoot)
 │   ├── about.php
 │   ├── assets
@@ -130,7 +134,20 @@ README.md
    $pass = ""; 
    ```
 
-4. Set your web server's root to the `/public` directory.
+4. Install PHP dependencies 
+   ```bash
+   cd expirySaver/app 
+   composer install 
+   cd ..
+   ```
+
+5. Configure email credentials in expirySaver/app/includes/config.php
+   ```php
+   define('EMAIL', 'your_email@gmail.com');
+   define('PASSWORD', 'your_app_password'); // Use an App Password if using Gmail with 2FA
+   define('FULLNAME', 'Expiry Saver');
+   ```
+6. Set your web server's root to the `/public` directory.
 
 ---
 
