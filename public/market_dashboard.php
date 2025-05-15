@@ -79,7 +79,7 @@ require "../app/controllers/market/dashboard.php";
             <span class="close" id="closeAddBtn">&times;</span>
             <h2>Add New Product</h2>
             
-            <form method="POST" enctype="multipart/form-data" action="market_dashboard.php">
+            <form method="POST" enctype="multipart/form-data" action="<?= htmlspecialchars($_SERVER['PHP_SELF']) ?>">
                 <div class="form-line">
                     <label>Title:</label>
                     <input type="text" id="title" name="title" required 

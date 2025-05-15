@@ -22,6 +22,7 @@ if (session_status() === PHP_SESSION_NONE) {
             <li class="nav-item"><a class="nav-link text-center px-3 width-100" href="market_dashboard.php">Dashboard</a></li>
             <?php endif?>
             <li class="nav-item"><a class="nav-link text-center px-3 width-100" href="profile.php"><?= $_SESSION["user"]["name"]?></a></li>  
+            <li class="nav-item"><a class="nav-link text-center px-3 width-100" href="cart.php">Shopping Cart</a></li>  
             <li class="nav-item"><a class="nav-link text-center px-3 width-100" href="logout.php">Logout</a></li>
         <?php else: ?>
           <li class="nav-item"><a class="nav-link text-center px-3 width-100" href="login.php">Login</a></li>
