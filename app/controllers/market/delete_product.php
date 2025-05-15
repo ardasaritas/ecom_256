@@ -20,6 +20,6 @@ if (isset($_GET['product_id'])) {
   
 }
 
-header("Location: ../public/market_dashboard.php");
+header("Location: /market_dashboard.php"); // change to header("Location: ../public/market_dashboard.php"); if web root is expirySaver instead of expirySaver/public
 exit();
 ?>

@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     if (!empty($errors)) {
         $_SESSION['errors'] = $errors;
         $_SESSION['form_data'] = $_POST;
-        header("Location: ../public/market_dashboard.php");
+        header("Location: /market_dashboard.php"); // change to header("Location: ../public/market_dashboard.php"); if web root is expirySaver instead of expirySaver/public
         exit();
     }
 
@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
         } else {
             $_SESSION['errors']['upload'] = $upload_result['error'];
             $_SESSION['form_data'] = $_POST;
-            header("Location: ../public/market_dashboard.php");
+            header("Location: /market_dashboard.php"); // change to header("Location: ../public/market_dashboard.php"); if web root is expirySaver instead of expirySaver/public
             exit();
         }
     }
@@ -55,12 +55,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     try {
         $stmt = $db->prepare($sql);
         $stmt->execute($input);
-        header("Location: ../public/market_dashboard.php");
+        header("Location: /market_dashboard.php"); // change to header("Location: ../public/market_dashboard.php"); if web root is expirySaver instead of expirySaver/public
         exit();
     } catch (PDOException $e) {
         $_SESSION['errors']['db'] = "Database error: " . $e->getMessage();
         $_SESSION['form_data'] = $_POST;
-        header("Location: ../public/market_dashboard.php");
+        header("Location: /market_dashboard.php"); // change to header("Location: ../public/market_dashboard.php"); if web root is expirySaver instead of expirySaver/public
         exit();
     }
 }
@@ -73,12 +73,12 @@ if (isset($_GET['product_id'])) {
         
         if (!$edit_product) {
             $_SESSION['error'] = "Product not found";
-            header("Location: /project/public/market_dashboard.php");
+            header("Location: /market_dashboard.php");
             exit();
         }
     } catch (PDOException $e) {
         $_SESSION['error'] = "Database error: " . $e->getMessage();
-        header("Location: /project/public/market_dashboard.php");
+        header("Location: /market_dashboard.php"); // change to header("Location: ../public/market_dashboard.php"); if web root is expirySaver instead of expirySaver/public
         exit();
     }
 }

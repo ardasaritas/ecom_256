@@ -10,3 +10,6 @@
 # macOS system file
 .DS_Store
 
+# Email Config
+
+email_config.php

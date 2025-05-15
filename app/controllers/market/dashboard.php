@@ -47,8 +47,10 @@ function upload($filebox) {
             $error = "{$file["name"]} : Not an image file";
         } else {
             $filename = bin2hex(random_bytes(8)) . ".$ext";
-            $upload_dir = dirname(dirname(dirname(__DIR__))) . DIRECTORY_SEPARATOR . "public" . DIRECTORY_SEPARATOR . "uploads";
-            
+            // $upload_dir = dirname(dirname(dirname(__DIR__))) . DIRECTORY_SEPARATOR . "public" . DIRECTORY_SEPARATOR . "uploads";
+            $upload_dir = $_SERVER['DOCUMENT_ROOT'] . "/uploads";
+            echo "<pre>Upload directory: $upload_dir</pre>";
+
             // Create directory if it doesn't exist
             if (!file_exists($upload_dir)) {
                 mkdir($upload_dir, 0777, true);

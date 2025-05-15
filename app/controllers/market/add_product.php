@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && (!isset($_POST['action']) || $_POST
     if (!empty($errors)) {
         $_SESSION['errors'] = $errors;
         $_SESSION['form_data'] = $_POST;
-        header("Location: ../public/market_dashboard.php");
+        header("Location: /market_dashboard.php"); // change to header("Location: ../public/market_dashboard.php"); if web root is expirySaver instead of expirySaver/public
         exit();
     }
    
@@ -37,18 +37,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && (!isset($_POST['action']) || $_POST
                     $_POST['expiration_date'],
                     $upload_result['filename']
                 ]);
-                header("Location: ../public/market_dashboard.php");
+                header("Location: /market_dashboard.php"); // change to header("Location: /public/market_dashboard.php"); if web root is expirySaver instead of expirySaver/public
                 exit();
             } catch (PDOException $e) {
                 $_SESSION['errors']['db'] = "Database error: " . $e->getMessage();
                 $_SESSION['form_data'] = $_POST;
-                header("Location: ../public/market_dashboard.php");
+                header("Location: /market_dashboard.php"); // change to header("Location: /public/market_dashboard.php"); if web root is expirySaver instead of expirySaver/public
                 exit();
             }
         } else {
             $_SESSION['errors']['upload'] = $upload_result['error'];
             $_SESSION['form_data'] = $_POST;
-            header("Location: ../public/market_dashboard.php");
+            header("Location: /market_dashboard.php"); // change to header("Location: /public/market_dashboard.php"); if web root is expirySaver instead of expirySaver/public
             exit();
         }
     }
