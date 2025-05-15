@@ -11,5 +11,4 @@
 .DS_Store
 
 # Email Config
-
-email_config.php
+/app/includes/email_config.php
