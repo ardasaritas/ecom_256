@@ -6,7 +6,6 @@ if (session_status() === PHP_SESSION_NONE) {
 require_once "../app/includes/db.php";
 require "../app/templates/header.php";
 require "../app/templates/navbar.php";
-
 require "../app/controllers/consumer/dashboard.php";
 ?>
 
@@ -20,11 +19,16 @@ require "../app/controllers/consumer/dashboard.php";
                 <div class="col-md-4">
                     <div class="card h-100">
                         <?php if (!empty($product['image_path'])): ?>
-                            <img src="<?= $product['image_path'] ?>" class="card-img-top" alt="<?= htmlspecialchars($product['title']) ?>">
-                        <?php else: ?>
-                            <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height:200px;">
-                                <span class="text-muted">No Image</span>
-                            </div>
+                            <div class="ratio ratio-4x3">
+                            <img src="<?= $product['image_path'] ?>"
+                            class="w-100 h-100 object-fit-cover"
+                            alt="<?= htmlspecialchars($product['title']) ?>"
+                            onerror="this.onerror=null; this.src='/uploads/placeholder.jpg';">
+                        </div>
+                    <?php else: ?>
+                        <div class="ratio ratio-4x3 bg-light d-flex align-items-center justify-content-center">
+                            <span class="text-muted">No Image</span>
+                        </div>
                         <?php endif; ?>
                         <div class="card-body">
                             <h5 class="card-title"><?= htmlspecialchars($product['title']) ?></h5>
@@ -69,7 +73,7 @@ require "../app/controllers/consumer/dashboard.php";
                 <div class="col-md-4">
                     <div class="card h-100 border-secondary-subtle">
                         <?php if (!empty($product['image_path'])): ?>
-                            <img src="<?= $product['image_path'] ?>" class="card-img-top" alt="<?= htmlspecialchars($product['title']) ?>">
+                            <img src="<?= $product['image_path'] ?>" class="card-img-top fixed-product-image" alt="<?= htmlspecialchars($product['title']) ?>">
                         <?php else: ?>
                             <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height:200px;">
                                 <span class="text-muted">No Image</span>

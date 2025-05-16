@@ -19,4 +19,8 @@
     background-color: #f8f9fa; /* light gray */
 }
   
-  
+.fixed-product-image {
+    height: 200px;
+    object-fit: cover;
+    width: 100%;
+}
