@@ -6,7 +6,15 @@ if (session_status() === PHP_SESSION_NONE) {
 require_once "../app/includes/db.php";
 require "../app/templates/header.php";
 require "../app/templates/navbar.php";
-require "../app/controllers/market/dashboard.php";
+
+$role = $_SESSION['user']['role'] ?? null;
+$isMarket = $role === 'market';
+
+if ($isMarket) {
+    require "../app/controllers/market/dashboard.php";
+} else {
+    require "../app/controllers/consumer/dashboard.php";
+}
 ?>
 
 <div class="container py-5">
@@ -20,8 +28,12 @@ require "../app/controllers/market/dashboard.php";
 
     <div class="card shadow mb-4">
         <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-            <h5 class="mb-0">Market Products</h5>
-            <a href="#" class="btn btn-light btn-sm" data-bs-toggle="modal" data-bs-target="#addProductModal">+ Add Product</a>
+            <h5 class="mb-0">
+                <?= $isMarket ? 'Your Market Products' : 'Available Discounted Products' ?>
+            </h5>
+            <?php if ($isMarket): ?>
+                <a href="#" class="btn btn-light btn-sm" data-bs-toggle="modal" data-bs-target="#addProductModal">+ Add Product</a>
+            <?php endif; ?>
         </div>
 
         <div class="card-body table-responsive">
@@ -34,7 +46,7 @@ require "../app/controllers/market/dashboard.php";
                         <th>Normal Price</th>
                         <th>Discounted Price</th>
                         <th>Expiration Date</th>
-                        <th>Actions</th>
+                        <?php if ($isMarket): ?><th>Actions</th><?php else: ?><th>Add to Cart</th><?php endif; ?>
                     </tr>
                 </thead>
                 <tbody>
@@ -57,10 +69,20 @@ require "../app/controllers/market/dashboard.php";
                             <td><?= $product['normal_price'] ?> TL</td>
                             <td><?= $product['discounted_price'] ?> TL</td>
                             <td><?= $product['expiration_date'] ?></td>
+                            <?php if ($isMarket): ?>
                             <td>
                                 <a href="#" class="btn btn-outline-primary btn-sm edit-btn" data-product='<?= json_encode($product) ?>'>Edit</a>
                                 <a href="market_dashboard.php?action=delete&product_id=<?= $product['id'] ?>" class="btn btn-outline-danger btn-sm">Delete</a>
                             </td>
+                            <?php else: ?>
+                            <td>
+                                <form method="POST" action="../app/ajax/purchase.php">
+                                    <input type="hidden" name="product_id" value="<?= $product['id'] ?>">
+                                    <input type="hidden" name="quantity" value="1">
+                                    <button type="submit" class="btn btn-success btn-sm" <?= $product['stock'] < 1 || $is_expired ? 'disabled' : '' ?>>Add to Cart</button>
+                                </form>
+                            </td>
+                            <?php endif; ?>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
@@ -69,6 +91,7 @@ require "../app/controllers/market/dashboard.php";
     </div>
 </div>
 
+<?php if ($isMarket): ?>
 <!-- Add Product Modal -->
 <div class="modal fade" id="addProductModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-lg modal-dialog-centered">
@@ -156,6 +179,7 @@ require "../app/controllers/market/dashboard.php";
     </div>
   </div>
 </div>
+<?php endif; ?>
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
