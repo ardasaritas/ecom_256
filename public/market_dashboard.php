@@ -76,7 +76,7 @@ if ($isMarket) {
                             </td>
                             <?php else: ?>
                             <td>
-                                <form method="POST" action="../app/ajax/purchase.php">
+                            <form method="POST" action="/ajax/purchase.php">
                                     <input type="hidden" name="product_id" value="<?= $product['id'] ?>">
                                     <input type="hidden" name="quantity" value="1">
                                     <button type="submit" class="btn btn-success btn-sm" <?= $product['stock'] < 1 || $is_expired ? 'disabled' : '' ?>>Add to Cart</button>
