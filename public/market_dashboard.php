@@ -1,5 +1,4 @@
 <?php
-# Market Dashboard Interface 
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -7,284 +6,187 @@ if (session_status() === PHP_SESSION_NONE) {
 require_once "../app/includes/db.php";
 require "../app/templates/header.php";
 require "../app/templates/navbar.php";
-
 require "../app/controllers/market/dashboard.php";
-
 ?>
 
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Market</title>
-    <!-- Add jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-</head>
-<body>
+<div class="container py-5">
     <?php if (isset($_SESSION['errors'])): ?>
-        <div class="errors">
+        <div class="alert alert-danger">
             <?php foreach ($_SESSION['errors'] as $type => $message): ?>
-                <div class="error"><?= htmlspecialchars($message) ?></div>
+                <div><?= htmlspecialchars($message) ?></div>
             <?php endforeach; ?>
-            <?php unset($_SESSION['errors']); ?>
         </div>
     <?php endif; ?>
 
-    <table>
-        <tr>
-            <td>Image</td>
-            <td>Title</td>
-            <td>Stock</td>
-            <td>Normal Price</td>
-            <td>Discounted Price</td>
-            <td>Expiration Date</td>
-            <td>Actions</td>
-        </tr>
-        <?php foreach ($products as $product): ?>
-            <?php 
-                $expiry_date = new DateTime($product['expiration_date']);
-                $today = new DateTime();
-                $is_expired = $expiry_date < $today;
-            ?>
-            <tr class="<?= $is_expired ? 'expired' : '' ?>">
-                <td>
-                    <?php if (!empty($product['image_path'])): ?>
-                        <img src="<?= $product['image_path'] ?>" alt="Product Image">
-                    <?php else: ?>
-                        No Image
-                    <?php endif; ?>
-                </td>
-                <td><?= $product['title'] ?></td>
-                <td><?= $product['stock'] ?></td>
-                <td><?= $product['normal_price'] ?> TL</td>
-                <td><?= $product['discounted_price'] ?> TL</td>
-                <td class="<?= $is_expired ? 'expired' : '' ?>"><?= $product['expiration_date'] ?></td>
-                <td>
-                    <a href="#" class="edit-btn" data-product='<?= json_encode($product) ?>'>Edit</a>
-                    <a href="market_dashboard.php?action=delete&product_id=<?= $product['id'] ?>" class="delete-btn">Delete</a>
-                </td>
-            </tr>
-        <?php endforeach; ?>
-        <tr>
-            <td colspan="7">
-            <a href="#" id="openAddBtn" class="add-btn">+ Add Product</a>
-            </td>
-        </tr>
-    </table>
-
-    <div id="addProductPopup" class="popup">
-        <div class="popup-content">
-            <span class="close" id="closeAddBtn">&times;</span>
-            <h2>Add New Product</h2>
-            
-            <form method="POST" enctype="multipart/form-data" action="<?= htmlspecialchars($_SERVER['PHP_SELF']) ?>">
-                <div class="form-line">
-                    <label>Title:</label>
-                    <input type="text" id="title" name="title" required 
-                           value="<?= isset($_SESSION['form_data']['title']) && (!isset($_SESSION['form_data']['action']) || $_SESSION['form_data']['action'] !== 'edit') ? htmlspecialchars($_SESSION['form_data']['title']) : '' ?>">
-                </div>
-                
-                <div class="form-line">
-                    <label>Product Image:</label>
-                    <input type="file" id="product_image" name="product_image" accept="image/*" required>
-                </div>
-                
-                <div class="form-line">
-                    <label>Stock Quantity:</label>
-                    <input type="number" id="stock" name="stock" required min="0" 
-                           value="<?= isset($_SESSION['form_data']['stock']) && (!isset($_SESSION['form_data']['action']) || $_SESSION['form_data']['action'] !== 'edit') ? htmlspecialchars($_SESSION['form_data']['stock']) : '' ?>">
-                </div>
-                
-                <div class="form-line">
-                    <label>Normal Price (TL):</label>
-                    <input type="number" id="normal_price" name="normal_price" required min="0"
-                           value="<?= isset($_SESSION['form_data']['normal_price']) && (!isset($_SESSION['form_data']['action']) || $_SESSION['form_data']['action'] !== 'edit') ? htmlspecialchars($_SESSION['form_data']['normal_price']) : '' ?>">
-                </div>
-                
-                <div class="form-line">
-                    <label>Discounted Price (TL):</label>
-                    <input type="number" id="discounted_price" name="discounted_price" required min="0"
-                           value="<?= isset($_SESSION['form_data']['discounted_price']) && (!isset($_SESSION['form_data']['action']) || $_SESSION['form_data']['action'] !== 'edit') ? htmlspecialchars($_SESSION['form_data']['discounted_price']) : '' ?>">
-                </div>
-                
-                <div class="form-line">
-                    <label>Expiration Date:</label>
-                    <input type="date" id="expiration_date" name="expiration_date" required 
-                           value="<?= isset($_SESSION['form_data']['expiration_date']) && (!isset($_SESSION['form_data']['action']) || $_SESSION['form_data']['action'] !== 'edit') ? htmlspecialchars($_SESSION['form_data']['expiration_date']) : '' ?>">
-                </div>
-                
-                <button type="submit">Add Product</button>
-            </form>
+    <div class="card shadow mb-4">
+        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">Market Products</h5>
+            <a href="#" class="btn btn-light btn-sm" data-bs-toggle="modal" data-bs-target="#addProductModal">+ Add Product</a>
         </div>
-    </div>
 
-    <!-- popup -->
-    <div id="editProductPopup" class="popup">
-        <div class="popup-content">
-            <span class="close" id="closeEditBtn">&times;</span>
-            <h2>Edit Product</h2>
-            <?php 
-            $is_edit_form = isset($_SESSION['form_data']['action']) && $_SESSION['form_data']['action'] === 'edit';
-            if (isset($_SESSION['errors']) && $is_edit_form): 
-            ?>
-                <div class="errors">
-                    <?php foreach ($_SESSION['errors'] as $type => $message): ?>
-                        <div class="error"><?= htmlspecialchars($message) ?></div>
+        <div class="card-body table-responsive">
+            <table class="table table-bordered text-center align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th>Image</th>
+                        <th>Title</th>
+                        <th>Stock</th>
+                        <th>Normal Price</th>
+                        <th>Discounted Price</th>
+                        <th>Expiration Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($products as $product): ?>
+                        <?php 
+                            $expiry_date = new DateTime($product['expiration_date']);
+                            $today = new DateTime();
+                            $is_expired = $expiry_date < $today;
+                        ?>
+                        <tr class="<?= $is_expired ? 'table-danger' : '' ?>">
+                            <td>
+                                <?php if (!empty($product['image_path'])): ?>
+                                    <img src="<?= $product['image_path'] ?>" class="img-thumbnail" style="width: 50px; height: 50px;">
+                                <?php else: ?>
+                                    <span class="text-muted">No Image</span>
+                                <?php endif; ?>
+                            </td>
+                            <td><?= htmlspecialchars($product['title']) ?></td>
+                            <td><?= $product['stock'] ?></td>
+                            <td><?= $product['normal_price'] ?> TL</td>
+                            <td><?= $product['discounted_price'] ?> TL</td>
+                            <td><?= $product['expiration_date'] ?></td>
+                            <td>
+                                <a href="#" class="btn btn-outline-primary btn-sm edit-btn" data-product='<?= json_encode($product) ?>'>Edit</a>
+                                <a href="market_dashboard.php?action=delete&product_id=<?= $product['id'] ?>" class="btn btn-outline-danger btn-sm">Delete</a>
+                            </td>
+                        </tr>
                     <?php endforeach; ?>
-                </div>
-            <?php endif; ?>
-            <form method="POST" enctype="multipart/form-data" action="market_dashboard.php">
-                <input type="hidden" name="action" value="edit">
-                <input type="hidden" id="edit_product_id" name="product_id" 
-                       value="<?= isset($_SESSION['form_data']['product_id']) ? htmlspecialchars($_SESSION['form_data']['product_id']) : '' ?>">
-                
-                <div class="form-line">
-                    <label>Title:</label>
-                    <input type="text" id="edit_title" name="title" required 
-                           value="<?= $is_edit_form && isset($_SESSION['form_data']['title']) ? htmlspecialchars($_SESSION['form_data']['title']) : '' ?>">
-                </div>
-                
-                <div class="form-line">
-                    <label>Product Image:</label>
-                    <input type="file" id="edit_product_image" name="product_image" accept="image/*">
-                </div>
-                
-                <div class="form-line">
-                    <label>Stock Quantity:</label>
-                    <input type="number" id="edit_stock" name="stock" required min="0"
-                           value="<?= $is_edit_form && isset($_SESSION['form_data']['stock']) ? htmlspecialchars($_SESSION['form_data']['stock']) : '' ?>">
-                </div>
-                
-                <div class="form-line">
-                    <label>Normal Price (TL):</label>
-                    <input type="number" id="edit_normal_price" name="normal_price" required min="0" 
-                           value="<?= $is_edit_form && isset($_SESSION['form_data']['normal_price']) ? htmlspecialchars($_SESSION['form_data']['normal_price']) : '' ?>">
-                </div>
-                
-                <div class="form-line">
-                    <label>Discounted Price (TL):</label>
-                    <input type="number" id="edit_discounted_price" name="discounted_price" required min="0"
-                           value="<?= $is_edit_form && isset($_SESSION['form_data']['discounted_price']) ? htmlspecialchars($_SESSION['form_data']['discounted_price']) : '' ?>">
-                </div>
-                
-                <div class="form-line">
-                    <label>Expiration Date:</label>
-                    <input type="date" id="edit_expiration_date" name="expiration_date" required
-                           value="<?= $is_edit_form && isset($_SESSION['form_data']['expiration_date']) ? htmlspecialchars($_SESSION['form_data']['expiration_date']) : '' ?>">
-                </div>
-                
-                <button type="submit">Update Product</button>
-            </form>
+                </tbody>
+            </table>
         </div>
     </div>
+</div>
+
+<!-- Add Product Modal -->
+<div class="modal fade" id="addProductModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <form method="POST" enctype="multipart/form-data" action="<?= htmlspecialchars($_SERVER['PHP_SELF']) ?>">
+        <div class="modal-header">
+          <h5 class="modal-title">Add New Product</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body row g-3">
+          <div class="col-md-6">
+            <label class="form-label">Title</label>
+            <input type="text" name="title" class="form-control" required value="<?= htmlspecialchars($_SESSION['form_data']['title'] ?? '') ?>">
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Product Image</label>
+            <input type="file" name="product_image" class="form-control" accept="image/*" required>
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Stock Quantity</label>
+            <input type="number" name="stock" class="form-control" required min="0" value="<?= htmlspecialchars($_SESSION['form_data']['stock'] ?? '') ?>">
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Normal Price (TL)</label>
+            <input type="number" name="normal_price" class="form-control" required min="0" value="<?= htmlspecialchars($_SESSION['form_data']['normal_price'] ?? '') ?>">
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Discounted Price (TL)</label>
+            <input type="number" name="discounted_price" class="form-control" required min="0" value="<?= htmlspecialchars($_SESSION['form_data']['discounted_price'] ?? '') ?>">
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Expiration Date</label>
+            <input type="date" name="expiration_date" class="form-control" required value="<?= htmlspecialchars($_SESSION['form_data']['expiration_date'] ?? '') ?>">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success">Add Product</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Product Modal -->
+<div class="modal fade" id="editProductModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <form method="POST" enctype="multipart/form-data" action="market_dashboard.php">
+        <input type="hidden" name="action" value="edit">
+        <input type="hidden" id="edit_product_id" name="product_id">
+        <div class="modal-header">
+          <h5 class="modal-title">Edit Product</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body row g-3">
+          <div class="col-md-6">
+            <label class="form-label">Title</label>
+            <input type="text" id="edit_title" name="title" class="form-control" required>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Product Image</label>
+            <input type="file" id="edit_product_image" name="product_image" class="form-control" accept="image/*">
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Stock Quantity</label>
+            <input type="number" id="edit_stock" name="stock" class="form-control" required min="0">
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Normal Price (TL)</label>
+            <input type="number" id="edit_normal_price" name="normal_price" class="form-control" required min="0">
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Discounted Price (TL)</label>
+            <input type="number" id="edit_discounted_price" name="discounted_price" class="form-control" required min="0">
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Expiration Date</label>
+            <input type="date" id="edit_expiration_date" name="expiration_date" class="form-control" required>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Update Product</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 
 <script>
-    $(document).ready(function() {
-       
-        $('#openAddBtn').click(function () {
-            $('#addProductPopup').show();
-        });
+    document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll('.edit-btn').forEach(btn => {
+            btn.addEventListener('click', function () {
+                const product = JSON.parse(this.dataset.product);
+                document.getElementById('edit_product_id').value = product.id;
+                document.getElementById('edit_title').value = product.title;
+                document.getElementById('edit_stock').value = product.stock;
+                document.getElementById('edit_normal_price').value = product.normal_price;
+                document.getElementById('edit_discounted_price').value = product.discounted_price;
+                document.getElementById('edit_expiration_date').value = product.expiration_date;
 
-       
-        $('#closeAddBtn').click(function () {
-            $('#addProductPopup').hide();
-        });
-
-        $('.edit-btn').click(function () {
-            const product = $(this).data('product');
-            $('#edit_product_id').val(product.id);
-            $('#edit_title').val(product.title);
-            $('#edit_stock').val(product.stock);
-            $('#edit_normal_price').val(product.normal_price);
-            $('#edit_discounted_price').val(product.discounted_price);
-            $('#edit_expiration_date').val(product.expiration_date);
-            $('#editProductPopup').show();
-        });
-
-        $('#closeEditBtn').click(function () {
-            $('#editProductPopup').hide();
+                const editModal = new bootstrap.Modal(document.getElementById('editProductModal'));
+                editModal.show();
+            });
         });
 
         <?php if (isset($_SESSION['errors'])): ?>
-            <?php if (isset($_SESSION['form_data']['action']) && $_SESSION['form_data']['action'] === 'edit'): ?>
-                $('#editProductPopup').show();
-            <?php else: ?>
-                $('#addProductPopup').show();
-            <?php endif; ?>
+            const targetModal = document.getElementById(
+                <?= isset($_SESSION['form_data']['action']) && $_SESSION['form_data']['action'] === 'edit' 
+                    ? "'editProductModal'" 
+                    : "'addProductModal'" ?>
+            );
+            new bootstrap.Modal(targetModal).show();
         <?php endif; ?>
     });
 </script>
 
-<style>
-    .errors {
-        background-color: #ffe6e6;
-        padding: 10px;
-        margin-bottom: 15px;
-        border-radius: 4px;
-    }
-
-    .error {
-        color: red;
-        margin: 5px 0;
-    }
-    
-    table {   
-        margin: 50px auto;
-        border-radius: 10px;
-        text-align: center;
-    }
-
-    img {
-        width: 50px;
-        height: 50px;
-        object-fit: cover; 
-    }
-    
-    .expired {
-        color: red;
-    }
-   
-    .popup {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0,0,0,0.5);
-        z-index: 1000;
-    }
-    
-    .popup-content {
-        background-color: white;
-        margin: 15% auto;
-        padding: 20px;
-        border-radius: 5px;
-        width: 70%;
-        max-width: 500px;
-        position: relative;
-    }
-    
-    .close {
-        position: absolute;
-        right: 10px;
-        top: 5px;
-        font-size: 24px;
-        cursor: pointer;
-    }
-
-    .form-line {
-        margin: 10px 0;
-    }
-</style>
-
-</body>
-</html>
-
-<?php 
-  unset($_SESSION['form_data']); 
-  unset($_SESSION['errors']);
-  require "../app/templates/footer.php" 
-  ?>
+<?php
+unset($_SESSION['form_data']);
+unset($_SESSION['errors']);
+require "../app/templates/footer.php";
+?>
