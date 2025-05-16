@@ -13,7 +13,7 @@ function routeUser($user){
          if($user["role"] == "market"){
              header("Location: market_dashboard.php");
          } else if($user["role"] == "consumer"){
-            header("Location: market_dashboard.php");
+            header("Location: consumer_dashboard.php");
         }
     }
 }

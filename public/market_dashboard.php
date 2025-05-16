@@ -7,14 +7,7 @@ require_once "../app/includes/db.php";
 require "../app/templates/header.php";
 require "../app/templates/navbar.php";
 
-$role = $_SESSION['user']['role'] ?? null;
-$isMarket = $role === 'market';
-
-if ($isMarket) {
-    require "../app/controllers/market/dashboard.php";
-} else {
-    require "../app/controllers/consumer/dashboard.php";
-}
+require "../app/controllers/market/dashboard.php";
 ?>
 
 <div class="container py-5">
@@ -28,12 +21,8 @@ if ($isMarket) {
 
     <div class="card shadow mb-4">
         <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-            <h5 class="mb-0">
-                <?= $isMarket ? 'Your Market Products' : 'Available Discounted Products' ?>
-            </h5>
-            <?php if ($isMarket): ?>
-                <a href="#" class="btn btn-light btn-sm" data-bs-toggle="modal" data-bs-target="#addProductModal">+ Add Product</a>
-            <?php endif; ?>
+            <h5 class="mb-0">Your Market Products</h5>
+            <a href="#" class="btn btn-light btn-sm" data-bs-toggle="modal" data-bs-target="#addProductModal">+ Add Product</a>
         </div>
 
         <div class="card-body table-responsive">
@@ -46,7 +35,7 @@ if ($isMarket) {
                         <th>Normal Price</th>
                         <th>Discounted Price</th>
                         <th>Expiration Date</th>
-                        <?php if ($isMarket): ?><th>Actions</th><?php else: ?><th>Add to Cart</th><?php endif; ?>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -69,20 +58,10 @@ if ($isMarket) {
                             <td><?= $product['normal_price'] ?> TL</td>
                             <td><?= $product['discounted_price'] ?> TL</td>
                             <td><?= $product['expiration_date'] ?></td>
-                            <?php if ($isMarket): ?>
                             <td>
                                 <a href="#" class="btn btn-outline-primary btn-sm edit-btn" data-product='<?= json_encode($product) ?>'>Edit</a>
                                 <a href="market_dashboard.php?action=delete&product_id=<?= $product['id'] ?>" class="btn btn-outline-danger btn-sm">Delete</a>
                             </td>
-                            <?php else: ?>
-                            <td>
-                            <form method="POST" action="/ajax/purchase.php">
-                                    <input type="hidden" name="product_id" value="<?= $product['id'] ?>">
-                                    <input type="hidden" name="quantity" value="1">
-                                    <button type="submit" class="btn btn-success btn-sm" <?= $product['stock'] < 1 || $is_expired ? 'disabled' : '' ?>>Add to Cart</button>
-                                </form>
-                            </td>
-                            <?php endif; ?>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
@@ -91,7 +70,6 @@ if ($isMarket) {
     </div>
 </div>
 
-<?php if ($isMarket): ?>
 <!-- Add Product Modal -->
 <div class="modal fade" id="addProductModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-lg modal-dialog-centered">
@@ -179,7 +157,6 @@ if ($isMarket) {
     </div>
   </div>
 </div>
-<?php endif; ?>
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {

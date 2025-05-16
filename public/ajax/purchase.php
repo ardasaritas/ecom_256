@@ -1,3 +1,3 @@
 <?php
-    header("Location: /market_dashboard.php"); 
+    header("Location: /consumer_dashboard.php"); 
 ?>
