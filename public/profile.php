@@ -51,7 +51,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
               <p><strong>Email:<br></strong> <?= htmlspecialchars($user['email']) ?></p>
               <p><strong>City:<br></strong> <?= htmlspecialchars($user['city']) ?></p>
               <p><strong>District:<br></strong> <?= htmlspecialchars($user['district']) ?></p>
-              <p><strong>Role:<br></strong> <?= htmlspecialchars($user['role']) ?></p>
             </div>
             <div class="col-md-6 text-md-end">
               <a href="#editProfile" class="btn btn-secondary" data-bs-toggle="collapse">Edit Profile</a>
