@@ -63,6 +63,11 @@ list($active_products, $total_pages) = searchProducts($db, $_SESSION['user']['ci
                             <form method="POST" action="/ajax/purchase.php" class="flex-fill">
                                 <input type="hidden" name="product_id" value="<?= $product['id'] ?>">
                                 <input type="hidden" name="quantity" value="1">
+                                
+                                <!-- preserve page and search info -->
+                                <input type="hidden" name="page" value="<?= htmlspecialchars($_GET['page'] ?? 1) ?>">
+                                <input type="hidden" name="search" value="<?= htmlspecialchars($_GET['search'] ?? '') ?>">
+
                                 <button type="submit" class="btn btn-primary w-100">Add to Cart</button>
                             </form>
                         </div>
