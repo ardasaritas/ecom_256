@@ -60,7 +60,7 @@ list($active_products, $total_pages) = searchProducts($db, $_SESSION['user']['ci
                             <p class="text-muted mb-1">Valid until: <?= $product['expiration_date'] ?></p>
                         </div>
                         <div class="card-footer d-flex gap-2">
-                            <form method="POST" action="/ajax/purchase.php" class="flex-fill">
+                        <form method="POST" action="/ajax/purchase.php" class="add-to-cart-form flex-fill">
                                 <input type="hidden" name="product_id" value="<?= $product['id'] ?>">
                                 <input type="hidden" name="quantity" value="1">
                                 
@@ -93,5 +93,28 @@ list($active_products, $total_pages) = searchProducts($db, $_SESSION['user']['ci
         </nav>
     <?php endif; ?>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$('.add-to-cart-form').on('submit', function(e) {
+    e.preventDefault(); // prevent full page reload
+
+    const $form = $(this);
+    const formData = $form.serialize();
+
+    $.post('/ajax/purchase.php', formData, function(response) {
+        if (response.success) {
+            // Update cart count if provided in response
+            if (response.cart_count !== undefined) {
+                $('#cart-count').text(response.cart_count);
+            }            
+        } else {
+            alert((response.error || 'Error adding to cart.'));
+        }
+    }, 'json');
+});
+</script>
+
+
 
 <?php require "../app/templates/footer.php" ?>
