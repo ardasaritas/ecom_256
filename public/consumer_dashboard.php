@@ -94,7 +94,6 @@ list($active_products, $total_pages) = searchProducts($db, $_SESSION['user']['ci
     <?php endif; ?>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 $('.add-to-cart-form').on('submit', function(e) {
     e.preventDefault(); // prevent full page reload
