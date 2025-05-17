@@ -60,7 +60,7 @@ list($active_products, $total_pages) = searchProducts($db, $_SESSION['user']['ci
                             <p class="text-muted mb-1">Valid until: <?= $product['expiration_date'] ?></p>
                         </div>
                         <div class="card-footer d-flex gap-2">
-                            <form method="POST" action="/ajax/purchase.php" class="flex-fill">
+                            <form method="POST" action="ajax/purchase.php" class="flex-fill">
                                 <input type="hidden" name="product_id" value="<?= $product['id'] ?>">
                                 <input type="hidden" name="quantity" value="1">
                                 
