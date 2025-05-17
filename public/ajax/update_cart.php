@@ -71,6 +71,14 @@ if ($action === 'remove') {
 if ($action === 'checkout') {
     $stmt = $db->prepare("DELETE FROM cart_items WHERE user_id = ?");
     $stmt->execute([$user_id]);
+     // Get updated cart count
+     $stmt = $db->prepare("SELECT COUNT(*) FROM cart_items WHERE user_id = ?");
+     $stmt->execute([$user_id]);
+     $cart_count = $stmt->fetchColumn();
+
+     // Store updated cart count in session for future page loads
+     $_SESSION['cart_count'] = $cart_count;
+     
     echo json_encode(['success' => true]);
     exit;
 }
