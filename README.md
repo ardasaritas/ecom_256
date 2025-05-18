@@ -141,13 +141,18 @@ README.md
    cd ..
    ```
 
-5. Configure email credentials in expirySaver/app/includes/config.php
+5. Create and configure email credentials in expirySaver/app/includes/email_config.php
+   ```bash
+   cd expirySaver
+   touch app/includes/email_config.php
+   ```
+   
    ```php
    define('EMAIL', 'your_email@gmail.com');
    define('PASSWORD', 'your_app_password'); // Use an App Password if using Gmail with 2FA
    define('FULLNAME', 'Expiry Saver');
    ```
-6. Set your web server's root to the `/public` directory.
+7. Set your web server's root to the `/public` directory.
 
 ---
 
