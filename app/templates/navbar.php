@@ -18,13 +18,12 @@ if (session_status() === PHP_SESSION_NONE) {
         <?php if(isset($_SESSION["user"]) || isset($_COOKIE["access-token"])): ?>
           <?php if($_SESSION["user"]["role"] == "consumer"): ?>
             <li class="nav-item"><a class="nav-link text-center px-3 width-100" href="consumer_dashboard.php">Dashboard</a></li>
+            <li class="nav-item"><a class="nav-link text-center px-3 width-100" href="cart.php">Shopping Cart</a></li>  
+            <li class="nav-item"><a class="nav-link" href="/cart.php">🛒 <span id="cart-count"><?= htmlspecialchars($_SESSION['cart_count']) ?? 0 ?></span></a></li>
           <?php else: ?>
             <li class="nav-item"><a class="nav-link text-center px-3 width-100" href="market_dashboard.php">Dashboard</a></li>
             <?php endif?>
-            <li class="nav-item"><a class="nav-link text-center px-3 width-100" href="profile.php"><?= $_SESSION["user"]["name"]?></a></li>  
-            <li class="nav-item"><a class="nav-link text-center px-3 width-100" href="cart.php">Shopping Cart</a></li>  
-            <li class="nav-item"><a class="nav-link" href="/cart.php">🛒 <span id="cart-count"><?= $_SESSION['cart_count'] ?? 0 ?></span></a></li>
-
+            <li class="nav-item"><a class="nav-link text-center px-3 width-100" href="profile.php"><?= htmlspecialchars($_SESSION["user"]["name"])?></a></li>  
             <li class="nav-item"><a class="nav-link text-center px-3 width-100" href="logout.php">Logout</a></li>
         <?php else: ?>
           <li class="nav-item"><a class="nav-link text-center px-3 width-100" href="login.php">Login</a></li>
