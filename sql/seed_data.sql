@@ -5,7 +5,7 @@ INSERT INTO users (id, email, password, role, name, city, district, is_verified,
 
 -- Insert sample consumer user (already verified), password is 123
 INSERT INTO users (id, email, password, role, name, city, district, is_verified, verification_code) VALUES (4, 'consumer@istanbul.com', '$2y$10$LmTnKGG.GSKZb8l6/NEp6uecSLzTw2cvRUPKWOQJpwZvicNLyLSnu', 'consumer', 'Consumer_1', 'İstanbul', 'Kadıköy', 1,  NULL);
-INSERT INTO users (id, email, password, role, name, city, district, is_verified, verification_code) VALUES (5, 'consumer@ankara.com', '$2y$10$LmTnKGG.GSKZb8l6/NEp6uecSLzTw2cvRUPKWOQJpwZvicNLyLSnu', 'consumer', 'Consumer_1', 'Ankara', 'Çankaya', 1,  NULL);
+INSERT INTO users (id, email, password, role, name, city, district, is_verified, verification_code) VALUES (5, 'consumer@ankara.com', '$2y$10$LmTnKGG.GSKZb8l6/NEp6uecSLzTw2cvRUPKWOQJpwZvicNLyLSnu', 'consumer', 'Consumer_2', 'Ankara', 'Çankaya', 1,  NULL);
 
 -- Insert sample product for market user (id = 1, 2, 3; market@istanbul.com, market@cankaya.com, market@bilkent.com, password : 123)
 

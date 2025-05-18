@@ -107,11 +107,11 @@ require "../app/controllers/market/dashboard.php";
           </div>
           <div class="col-md-4">
             <label class="form-label">Normal Price (TL)</label>
-            <input type="number" name="normal_price" class="form-control" required min="0" value="<?= htmlspecialchars($_SESSION['form_data']['normal_price'] ?? '') ?>">
+            <input type="number" name="normal_price" class="form-control" required min="0" step="any" value="<?= htmlspecialchars($_SESSION['form_data']['normal_price'] ?? '') ?>">
           </div>
           <div class="col-md-4">
             <label class="form-label">Discounted Price (TL)</label>
-            <input type="number" name="discounted_price" class="form-control" required min="0" value="<?= htmlspecialchars($_SESSION['form_data']['discounted_price'] ?? '') ?>">
+            <input type="number" name="discounted_price" class="form-control" required min="0" step="any" value="<?= htmlspecialchars($_SESSION['form_data']['discounted_price'] ?? '') ?>">
           </div>
           <div class="col-md-6">
             <label class="form-label">Expiration Date</label>
@@ -153,11 +153,11 @@ require "../app/controllers/market/dashboard.php";
           </div>
           <div class="col-md-4">
             <label class="form-label">Normal Price (TL)</label>
-            <input type="number" id="edit_normal_price" name="normal_price" class="form-control" required min="0">
+            <input type="number" id="edit_normal_price" name="normal_price" class="form-control" required min="0" step="any">
           </div>
           <div class="col-md-4">
             <label class="form-label">Discounted Price (TL)</label>
-            <input type="number" id="edit_discounted_price" name="discounted_price" class="form-control" required min="0">
+            <input type="number" id="edit_discounted_price" name="discounted_price" class="form-control" required min="0" step="any">
           </div>
           <div class="col-md-6">
             <label class="form-label">Expiration Date</label>
