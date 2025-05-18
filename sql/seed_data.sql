@@ -7,7 +7,7 @@ INSERT INTO users (id, email, password, role, name, city, district, is_verified,
 INSERT INTO users (id, email, password, role, name, city, district, is_verified, verification_code) VALUES (4, 'consumer@istanbul.com', '$2y$10$LmTnKGG.GSKZb8l6/NEp6uecSLzTw2cvRUPKWOQJpwZvicNLyLSnu', 'consumer', 'Consumer_1', 'İstanbul', 'Kadıköy', 1,  NULL);
 INSERT INTO users (id, email, password, role, name, city, district, is_verified, verification_code) VALUES (5, 'consumer@ankara.com', '$2y$10$LmTnKGG.GSKZb8l6/NEp6uecSLzTw2cvRUPKWOQJpwZvicNLyLSnu', 'consumer', 'Consumer_1', 'Ankara', 'Çankaya', 1,  NULL);
 
--- Insert sample product for market user (id = 1, market@istanbul.com, password : 123)
+-- Insert sample product for market user (id = 1, 2, 3; market@istanbul.com, market@cankaya.com, market@bilkent.com, password : 123)
 
 INSERT INTO products (user_id, title, stock, normal_price, discounted_price, expiration_date, image_path) VALUES (1, 'LOreal Paris Men Expert Magnesium Defense Duş Jeli', 3957, 219.95, 129.95, '2028-02-16', 'uploads/dusjeli.jpg');
 INSERT INTO products (user_id, title, stock, normal_price, discounted_price, expiration_date, image_path) VALUES (1, 'Coca-Cola Orijinal Tat Cam Şişe 6x250 Ml', 1057, 198.95, 125.00, '2027-04-22', 'uploads/cocacola.jpg');
