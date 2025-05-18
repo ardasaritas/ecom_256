@@ -4,8 +4,21 @@ if (session_status() == PHP_SESSION_NONE) {
 }
 
 require_once "../app/includes/db.php" ;
+require_once "../app/includes/csrf.php" ;
 require "../app/templates/header.php";
 require "../app/templates/navbar.php";
+generate_csrf_token();
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (!verify_csrf_token($_POST['csrf_token'] ?? '')) {
+        // For AJAX:
+        echo json_encode(['success' => false, 'error' => 'CSRF token mismatch']);
+        exit;
+        // Or for normal form:
+        // die('CSRF token mismatch');
+    }
+    // ... continue with valid logic
+}
 
 //routes the user based on the role of the user
 function routeUser($user){
@@ -69,6 +82,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST)) {
   <div class="card p-5 shadow width-500">
     <h2 class="text-center mb-5 fw-bold">Login to ExpirySaver</h2>
     <form method="post" action="login.php" autocomplete="off">
+    <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
       <div class="mb-3">
         <label for="email" class="form-label">Email address</label>
         <input type="email" name="email" class="form-control" id="email" autocomplete="off" required 

@@ -1,14 +1,28 @@
 <?php
 require_once __DIR__ . '/../app/includes/db.php'; 
+require_once __DIR__ . '/../app/includes/csrf.php'; 
 require_once __DIR__ . '/../app/templates/header.php';
 require_once __DIR__ . '/../app/templates/navbar.php';
-
+generate_csrf_token();
 if (isset($_SESSION['user'])) {
     $user_id = $_SESSION['user']['id'];
 
     $stmt = $db->prepare("SELECT * FROM users WHERE id = :user_id");
     $stmt->execute(['user_id' => $user_id]);
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    
+    if (!verify_csrf_token($_POST['csrf_token'] ?? '')) {
+        // For AJAX:
+        echo json_encode(['success' => false, 'error' => 'CSRF token mismatch']);
+        exit;
+        // Or for normal form:
+        // die('CSRF token mismatch');
+    }
+    // ... continue with valid logic
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -66,6 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           </div>
           <div class="card-body">
             <form action="profile.php" method="POST" autocomplete="off">
+              <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
               <div class="mb-3">
                 <label for="name" class="form-label" id="nameLabel">Name</label>
                 <input type="text" class="form-control" id="name" name="name" value="<?= htmlspecialchars($user['name']) ?>" required>

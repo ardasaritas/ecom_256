@@ -2,18 +2,32 @@
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
-
 require_once "../app/includes/db.php";
+$user_id = $_SESSION['user']['id'];
+// Get updated cart count
+$stmt = $db->prepare("SELECT COUNT(*) FROM cart_items WHERE user_id = ?");
+$stmt->execute([$user_id]);
+$cart_count = $stmt->fetchColumn();
+
+// Store updated cart count in session for future page loads
+$_SESSION['cart_count'] = $cart_count;
+
+
+require_once "../app/includes/csrf.php";
 require_once "../app/includes/functions.php";  // Fonksiyonlar burada tanımlı
 require "../app/templates/header.php";
 require "../app/templates/navbar.php";
 
+generate_csrf_token();
 $search_keyword = isset($_GET['search']) ? trim($_GET['search']) : '';
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $per_page = 4;
 $offset = ($page - 1) * $per_page;
 
 list($active_products, $total_pages) = searchProducts($db, $_SESSION['user']['city'], $_SESSION['user']['district'], $search_keyword, $offset, $per_page);
+
+
+
 ?>
 
 <div class="container py-5">
@@ -61,6 +75,7 @@ list($active_products, $total_pages) = searchProducts($db, $_SESSION['user']['ci
                         </div>
                         <div class="card-footer d-flex gap-2">
                         <form method="POST" action="/ajax/purchase.php" class="add-to-cart-form flex-fill">
+                                <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
                                 <input type="hidden" name="product_id" value="<?= $product['id'] ?>">
                                 <input type="hidden" name="quantity" value="1">
                                 

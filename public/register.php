@@ -1,11 +1,22 @@
 <?php
   require_once "../app/includes/db.php" ;
+  require_once "../app/includes/csrf.php" ;
   require "../app/templates/header.php";
   require "../app/templates/navbar.php";
   require_once "../app/includes/email.php";
   require_once "../app/vendor/autoload.php";
+  generate_csrf_token();
+  if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-
+    if (!verify_csrf_token($_POST['csrf_token'] ?? '')) {
+        // For AJAX:
+        echo json_encode(['success' => false, 'error' => 'CSRF token mismatch']);
+        exit;
+        // Or for normal form:
+        // die('CSRF token mismatch');
+    }
+    // ... continue with valid logic
+}
 
 
   
@@ -42,6 +53,7 @@
     <h2 class="text-center mb-5 fw-bold">Register for ExpirySaver</h2>
 
     <form method="post" action="register.php" autocomplete="off">
+    <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
 
       <!-- Role Toggle -->
       <div class="mb-5 text-center">

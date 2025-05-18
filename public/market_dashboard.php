@@ -4,9 +4,21 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 require_once "../app/includes/db.php";
+require_once "../app/includes/csrf.php";
 require "../app/templates/header.php";
 require "../app/templates/navbar.php";
 
+generate_csrf_token();
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  if (!verify_csrf_token($_POST['csrf_token'] ?? '')) {
+      // For AJAX:
+      echo json_encode(['success' => false, 'error' => 'CSRF token mismatch']);
+      exit;
+      // Or for normal form:
+      // die('CSRF token mismatch');
+  }
+  // ... continue with valid logic
+}
 require "../app/controllers/market/dashboard.php";
 ?>
 
@@ -75,6 +87,7 @@ require "../app/controllers/market/dashboard.php";
   <div class="modal-dialog modal-lg modal-dialog-centered">
     <div class="modal-content">
       <form method="POST" enctype="multipart/form-data" action="<?= htmlspecialchars($_SERVER['PHP_SELF']) ?>">
+      <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
         <div class="modal-header">
           <h5 class="modal-title">Add New Product</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -118,6 +131,7 @@ require "../app/controllers/market/dashboard.php";
   <div class="modal-dialog modal-lg modal-dialog-centered">
     <div class="modal-content">
       <form method="POST" enctype="multipart/form-data" action="market_dashboard.php">
+        <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
         <input type="hidden" name="action" value="edit">
         <input type="hidden" id="edit_product_id" name="product_id">
         <div class="modal-header">
