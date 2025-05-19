@@ -1,7 +1,7 @@
 -- Insert sample market users (already verified), password is 123
 INSERT INTO users (id, email, password, role, name, city, district, is_verified, verification_code) VALUES (1, 'market@istanbul.com', '$2y$10$LmTnKGG.GSKZb8l6/NEp6uecSLzTw2cvRUPKWOQJpwZvicNLyLSnu', 'market', 'Migros', 'İstanbul','Kadıköy',1, NULL);
 INSERT INTO users (id, email, password, role, name, city, district, is_verified, verification_code) VALUES (2, 'market@cankaya.com', '$2y$10$LmTnKGG.GSKZb8l6/NEp6uecSLzTw2cvRUPKWOQJpwZvicNLyLSnu', 'market', 'CarrefourSA-Çankaya', 'Ankara','Çankaya',1, NULL);
-INSERT INTO users (id, email, password, role, name, city, district, is_verified, verification_code) VALUES (3, 'market@bilkent.com', '$2y$10$LmTnKGG.GSKZb8l6/NEp6uecSLzTw2cvRUPKWOQJpwZvicNLyLSnu', 'market', 'CarrefourSA-Bilkent', 'Ankara','Çankaya',1, NULL);
+INSERT INTO users (id, email, password, role, name, city, district, is_verified, verification_code) VALUES (3, 'market@bilkent.com', '$2y$10$LmTnKGG.GSKZb8l6/NEp6uecSLzTw2cvRUPKWOQJpwZvicNLyLSnu', 'market', 'CarrefourSA-Bilkent', 'Ankara','Bilkent',1, NULL);
 
 -- Insert sample consumer user (already verified), password is 123
 INSERT INTO users (id, email, password, role, name, city, district, is_verified, verification_code) VALUES (4, 'consumer@istanbul.com', '$2y$10$LmTnKGG.GSKZb8l6/NEp6uecSLzTw2cvRUPKWOQJpwZvicNLyLSnu', 'consumer', 'Consumer_1', 'İstanbul', 'Kadıköy', 1,  NULL);
@@ -29,7 +29,7 @@ INSERT INTO products (user_id, title, stock, normal_price, discounted_price, exp
 INSERT INTO products (user_id, title, stock, normal_price, discounted_price, expiration_date, image_path) VALUES (2, 'Nestle Nesquik Mısır Gevreği 700 G', 2479, 310.09, 293.48, '2029-05-25', 'uploads/nestle.jpg');
 INSERT INTO products (user_id, title, stock, normal_price, discounted_price, expiration_date, image_path) VALUES (2, 'Torku Banada Kakaolu Fındık Kreması 400 G', 2008, 144.13, 112.26, '2026-05-19', 'uploads/torkubanada.jpg');
 INSERT INTO products (user_id, title, stock, normal_price, discounted_price, expiration_date, image_path) VALUES (2, 'Torku Dana Kangal Sucuk 500 G', 3043, 250.86, 235.18, '2027-04-24', 'uploads/torkukangal.jpg');
-INSERT INTO products (user_id, title, stock, normal_price, discounted_price, expiration_date, image_path) VALUES (2, 'Nestle Pure Life Su 6x1.5 L', 675, 222.05, 204.17, '2027-03-23', 'uploads/nestle.jpg');
+INSERT INTO products (user_id, title, stock, normal_price, discounted_price, expiration_date, image_path) VALUES (2, 'Nestle Pure Life Su 6x1.5 L', 675, 222.05, 204.17, '2027-03-23', 'uploads/nestlepure.jpg');
 INSERT INTO products (user_id, title, stock, normal_price, discounted_price, expiration_date, image_path) VALUES (3, 'Nestle Pure Life Su 6x1.5 L', 6299, 202.78, 194.15, '2028-03-18', 'uploads/nestlepure.jpg');
 INSERT INTO products (user_id, title, stock, normal_price, discounted_price, expiration_date, image_path) VALUES (3, 'Bingo Matik Deterjan 7 Kg', 8511, 367.27, 318.09, '2029-11-15', 'uploads/bingo.jpg');
 INSERT INTO products (user_id, title, stock, normal_price, discounted_price, expiration_date, image_path) VALUES (3, 'Eti Cin Portakallı Kek 5x26 G', 3099, 180.83, 130.98, '2026-09-14', 'uploads/eti.jpg');
