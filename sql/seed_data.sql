@@ -40,4 +40,4 @@ INSERT INTO products (user_id, title, stock, normal_price, discounted_price, exp
 INSERT INTO products (user_id, title, stock, normal_price, discounted_price, expiration_date, image_path) VALUES (3, 'Torku Banada Kakaolu Fındık Kreması 400 G', 5898, 117.12, 100.79, '2026-04-05', 'uploads/torkubanada.jpg');
 INSERT INTO products (user_id, title, stock, normal_price, discounted_price, expiration_date, image_path) VALUES (3, 'Ülker Rondo Kakaolu Bisküvi 100 G', 3178, 370.28, 358.03, '2029-02-09', 'uploads/ulker.jpg');
 INSERT INTO products (user_id, title, stock, normal_price, discounted_price, expiration_date, image_path) VALUES (3, 'Fanta Portakal Cam Şişe 6x250 Ml', 4371, 94.01, 61.16, '2028-03-14', 'uploads/fanta.jpg');
-INSERT INTO products (user_id, title, stock, normal_price, discounted_price, expiration_date, image_path) VALUES (3, 'Finish Quantum Bulaşık Tableti 40''lı', 7464, 40.28, 20.78, '2028-01-12', 'uploads/finish.jpg');
+INSERT INTO products (user_id, title, stock, normal_price, discounted_price, expiration_date, image_path) VALUES (3, 'Finish Quantum Bulaşık Tableti 40''lı', 7464, 40.28, 20.78, '2024-01-12', 'uploads/finish.jpg');

@@ -63,7 +63,6 @@ if($_COOKIE["email"] != ""){
       </div>
     </form>
     <div class="mt-3 text-center">
-      <p class="text-muted">Didn't receive a code? <a href="?">Resend</a></p>
     </div>
   </div>
 </main>

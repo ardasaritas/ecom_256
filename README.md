@@ -34,7 +34,7 @@ ExpirySaver is a multi-user web-based application designed to reduce food waste 
 - **Backend:** PHP
 - **Database:** MySQL
 - **Frontend:** HTML, CSS, Bootstrap, AJAX, jQuery
-- **Security:** CSRF protection, hashed passwords, input validation
+- **Security:** CSRF, XSS, SQL Injection protection, hashed passwords, input validation
 
 ---
 
@@ -42,15 +42,10 @@ ExpirySaver is a multi-user web-based application designed to reduce food waste 
 
 ```
 ├── app
-│   ├── ajax                   # AJAX endpoints for async operations
-│   │   ├── product_search.php
-│   │   ├── purchase.php
-│   │   └── update_cart.php
 │   ├── controllers            # Server-side logic, grouped by user role
 │   │   ├── consumer
 │   │   │   ├── cart.php
-│   │   │   ├── dashboard.php
-│   │   │   └── search.php
+│   │   │   └── dashboard.php
 │   │   └── market
 │   │       ├── add_product.php
 │   │       ├── dashboard.php
@@ -60,21 +55,25 @@ ExpirySaver is a multi-user web-based application designed to reduce food waste 
 │   │   ├── auth.php
 │   │   ├── csrf.php
 │   │   ├── db.php
+│   │   ├── email_config.php (initially in .gitignore)
 │   │   ├── email.php
 │   │   └── functions.php
 │   ├── templates              # Shared HTML components
 │   │   ├── footer.php
-│   │   ├── form_components.php
 │   │   ├── header.php
 │   │   └── navbar.php
-│   ├── vendor
+│   ├── vendor (initially in .gitignore)
 │   └── composer.json
 │   └── composer.lock
 │
-├── public                    # Public-facing routes (DocumentRoot)
-│   ├── about.php
+├── public # Public-facing routes (DocumentRoot)
+│   ├── ajax                
+│   │   ├── purchase.php
+│   │   └── update_cart.php         
 │   ├── assets
 │   │   └── style.css
+│   ├── uploads
+│   ├── about.php
 │   ├── cart.php
 │   ├── consumer_dashboard.php
 │   ├── index.php
@@ -88,6 +87,7 @@ ExpirySaver is a multi-user web-based application designed to reduce food waste 
 └── sql                       # Database schema and seed data
     ├── schema.sql
     └── seed_data.sql
+.gitignore
 README.md
 ```
 
