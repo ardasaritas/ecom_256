@@ -158,13 +158,12 @@ README.md
 
 ## 👨‍💻 Contributors
 
-| Name          | Role                      |
-|---------------|---------------------------|
-| Hamit Efe Eldem (@HamitEldem)      | User Auth & Registration  |
-| [Dev]      | Market Dashboard & Products |
-| [Dev]      | Consumer Search & Pagination |
-| [Dev]      | Shopping Cart & AJAX Logic |
-| Arda Sarıtaş (@ardasaritas)      | UI/UX, Data, and Sessions |
+| Name                         | Role                                       |
+|------------------------------|--------------------------------------------|
+| Hamit Efe Eldem (@HamitEldem)| User Auth & Registration                   |
+| Zeynep Arslan (@zearslan)    | Market Dashboard & Products                |
+| Berke Anık (@berkeanik)      | Consumer Search & Pagination               |
+| Arda Sarıtaş (@ardasaritas)  | UI/UX, Data, Sessions, AJAX, Shopping Cart |
 
 ---
 
